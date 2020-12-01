@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\InscriptionFormType;
+use App\Security\ConnexionFormAthentificatorAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -17,7 +19,10 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
+    public function inscription(Request $request, EntityManagerInterface $manager, 
+    UserPasswordEncoderInterface $encoder,
+    ConnexionFormAthentificatorAuthenticator $login,
+    GuardAuthenticatorHandler $guard): Response
     {
        $user = new User();
        $insriptionForm = $this->createForm(InscriptionFormType::class, $user);
@@ -26,10 +31,12 @@ class SecurityController extends AbstractController
 
             $hash = $encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($hash);
+            $user->setRoles(['ROLE_USER']);
             $manager->persist($user);
             $manager->flush();
 
             $this->addFlash('success', 'Inscription réussie, BRAVO !!!');
+            return $guard->authenticateUserAndHandleSuccess($user,$request,$login,'main');
        }
        
        
