@@ -19,6 +19,23 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
+
+
+    public function search($mots = null, $categorie = null){
+        $query = $this->createQueryBuilder('a');
+        $query->where('a.id > 0');
+        if($mots != null){
+            $query->andWhere('MATCH_AGAINST(a.brand, a.model, a.description) AGAINST (:mots boolean)>0')
+                ->setParameter('mots', $mots);
+        }
+        if($categorie != null){
+            $query->leftJoin('a.categories', 'c');
+            $query->andWhere('c.id = :id')
+                ->setParameter('id', $categorie);
+        }
+        return $query->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Produit[] Returns an array of Produit objects
     //  */
@@ -47,4 +64,5 @@ class ProduitRepository extends ServiceEntityRepository
         ;
     }
     */
+    
 }
