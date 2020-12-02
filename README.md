@@ -1,3 +1,31 @@
+# Installation
+
+1. Clone or download repository
+
+   https://github.com/arezki-k/EcommerceSymfony
+
+2. Move to project directory and run composer 
+ 
+    ```
+    cd ./EcommerceSymfony
+    composer install
+    ```
+3. Configure the .env with your database url, user and password.
+4. Create the database with doctrine and make migrations to create tables:
+   1.  `php bin/console doctrine:database:create `
+   2.  `php bin/console make migration `
+   3.   `php bin/console doctrine:migrations:migrate `
+5. Create an Admin user to have access to the admin interface
+   1. First hash a password with `php bin/console security:encode-password`, and copy the result.
+   2. Execute the following query:
+    ```SQL
+    insert into user(email, role, password, name) values('youemail@email.com','[\"ROLE_ADMIN\"]','your hashed password','your name');
+ 
+    ```
+6. Run the server: with symfony cli:
+   `symfony server:start`
+7. You can access the admin dashboard in localhost:8000/admin
+   
 # Introduction & environement
 
 php framwork, enforces best practises, easy maintenance, modular.

@@ -10,7 +10,10 @@
 		<div class="container">
 			<h2>Produits</h2>
 			
+			{% if form is defined %}
 				{{form(form)}}
+			{% endif %}
+				
 				
 				<div class="Produits">
 
@@ -33,9 +36,12 @@
 											€
 										</h5>
 										<div class="row"></div>
-										<button type="button" class="btn btn-dark btn-lg btn-block">
+										{% if app.user %}
+											<button type="button" class="btn btn-dark btn-lg btn-block">
 											<a href="{{path('cart_add', {'id': produit.id })}}">Ajouter au panier</a>
 										</button>
+										{% endif %}
+										
 										<button type="button" class="btn btn-dark btn-lg btn-block">
 											<a href="{{path('produit',{'id':produit.id})}}">Details</a>
 										</button>

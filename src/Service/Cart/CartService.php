@@ -60,9 +60,8 @@ class CartService
         return $total;
     }
     public function validateCart(){
-        $panier=$this->session->get('panier',[]);
-        $panier=[];
-        $this->session->set('panier', $panier);
+
+        $this->session->set('panier', []);
 
     }
 }

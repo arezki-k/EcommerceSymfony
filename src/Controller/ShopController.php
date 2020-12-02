@@ -57,7 +57,10 @@ class ShopController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             //On recherche les annonces correspodant aux mots clé<s class=""></s>
-            $All = $repo->search($search->get('mots')->getData());
+            $All = $repo->search(
+                $search->get('mots')->getData(),
+                $search->get('categorie')->getData()
+            );
 
         }
         
@@ -77,5 +80,13 @@ class ShopController extends AbstractController
             'produit' => $produit
         ]);
     }
+    /**
+     * @Route("/readme", name="readme")
+     */
+    public function readme(): Response
+    {
+        return $this->render('markdown/readme.markdown.twig');
+    }
+
 
 }

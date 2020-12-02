@@ -2,11 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchProduitType extends AbstractType
 {
@@ -14,11 +16,21 @@ class SearchProduitType extends AbstractType
     {
         $builder
             ->add('mots',SearchType::class,[
-                'label' => false,
+                'label' => 'Chercher par mot clé',
                 'attr'=>[
                     'class' => 'form-control mr-sm-2',
-                    'placeholder'=>'Entrez vos mots-clés'
-                ]
+                    'placeholder'=>'Entrez vos mots-clés',
+                    
+                ],
+                'required'=>false
+            ])
+            ->add('categorie',EntityType::class,[
+                'class' => Category::class,
+                'label' => 'Choisir la catégorie',
+                'attr'=>[
+                    'class' => 'form-control mr-sm-2',                    
+                ],
+                'required'=>false
             ])
             ->add('Rechercher',SubmitType::class,[
                 'attr'=>[

@@ -26,10 +26,10 @@ class ProduitRepository extends ServiceEntityRepository
         $query->where('a.id > 0');
         if($mots != null){
             $query->andWhere('MATCH_AGAINST(a.brand, a.model, a.description) AGAINST (:mots boolean)>0')
-                ->setParameter('mots', $mots);
+                ->setParameter('mots','*'.$mots.'*');
         }
         if($categorie != null){
-            $query->leftJoin('a.categories', 'c');
+            $query->leftJoin('a.category', 'c');
             $query->andWhere('c.id = :id')
                 ->setParameter('id', $categorie);
         }
