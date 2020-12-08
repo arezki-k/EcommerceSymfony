@@ -19,7 +19,7 @@
    1. First hash a password with `php bin/console security:encode-password`, and copy the result.
    2. Execute the following query:
     ```SQL
-    insert into user(email, role, password, name) values('youemail@email.com','[\"ROLE_ADMIN\"]','your hashed password','your name');
+    insert into user(email, role, password, name) values('youemail@email.com','\["ROLE_ADMIN"\]','your hashed password','your name');
  
     ```
 6. Run the server: with symfony cli:
@@ -27,7 +27,6 @@
 7. You can access the admin dashboard in localhost:8000/admin
    
 # Introduction & environement
-
 php framwork, enforces best practises, easy maintenance, modular.
 
 ### MVC architecture
