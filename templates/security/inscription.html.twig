@@ -17,11 +17,9 @@
     'placeholder':'My St0n4 passwORd'}})}}
     {{form_row(inscriptionForm.passwordConfirmation, {'label':'confirmation du mot de passe','attr':{
     'placeholder':'confirmer le mot de passe'}})}}
+	<button type="submit" class="btn bnt-success">S'inscrire</button>
+	{{form_end(inscriptionForm)}}
 
-
-<button type="submit" class="btn bnt-success">S'inscrire</button>
-
-{{form_end(inscriptionForm)}}
 	{% for message in app.flashes('success') %}
 		<div class="alert alert-success">
 			{{ message }}

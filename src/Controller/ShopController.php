@@ -51,7 +51,8 @@ class ShopController extends AbstractController
      */
     public function produits(ProduitRepository $repo,Request $request): Response
     {
-        $All = $repo->findAll(['brand' => 'asc']);
+
+        $All = $repo->findAll(['brand'=>'asc']);
         $form = $this->createForm(SearchProduitType::class);
         $search = $form->handleRequest($request);
 
@@ -60,11 +61,10 @@ class ShopController extends AbstractController
             $All = $repo->search(
                 $search->get('mots')->getData(),
                 $search->get('categorie')->getData()
+
             );
 
         }
-        
-
         return $this->render('shop/produits.html.twig', [
             'All' => $All,
             'form'=>$form->createView()

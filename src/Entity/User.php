@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  * fields = "email",
- * message="User existe déja")
+ * message="User existe déja, veuillez utiliser un autre email !")
  */
 class User implements UserInterface
 {
@@ -155,7 +155,7 @@ class User implements UserInterface
 
         return $this;
     }
-    public function __toString()
+    public function __toString(): string
     {
         return $this->email;
     }

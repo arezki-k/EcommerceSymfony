@@ -25,9 +25,9 @@
 					<tr>
 						<td>{{item.produit.brand}}
 							{{item.produit.model}}</td>
-						<td>{{item.produit.price}}</td>
+						<td>{{item.produit.price}}€</td>
 						<td>{{item.quantity}}</td>
-						<td>{{item.produit.price * item.quantity }}</td>
+						<td>{{item.produit.price * item.quantity }}€</td>
 						<td>
 							<a href="{{path('cart_remove',{'id': item.produit.id})}}">
 								<button type="button" class="btn btn-danger btn-sm">Supprimer</button>
@@ -39,7 +39,7 @@
             <tfoot>
                 <tr>
                     <td colspan="3" class="text-right" > <strong>Total : </strong>   </td>
-                    <td>{{total}}</td>
+                    <td>{{total}}€</td>
                     <td class="text-right"><button type="button" class="btn btn-outline-success btn-sm btn-md btn-block"><a href="{{path('cart_validate')}}">Payer</a></button></td>
                 </tr>
             </tfoot>

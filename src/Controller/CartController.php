@@ -6,7 +6,14 @@ use App\Service\Cart\CartService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+
+    /**
+     * Require ROLE_USER for *every* controller method in this class.
+     *
+     * @IsGranted("ROLE_USER")
+     */
 class CartController extends AbstractController
 {
     /**
@@ -15,7 +22,7 @@ class CartController extends AbstractController
     public function index(CartService $cartService): Response
     {
        // dd($panierWithData);
-        
+
         return $this->render('cart/index.html.twig',
             ['items'=>$cartService->getFullCart(),
             'total'=>$cartService->getTotal()   
@@ -27,11 +34,9 @@ class CartController extends AbstractController
      */
 
     public function add($id, CartService $cartService){
-
         $cartService->add($id);
         return $this->redirectToRoute('cart');
     }
-
 
    /**
      * @Route("/cart/remove/{id}", name="cart_remove")
@@ -52,5 +57,4 @@ class CartController extends AbstractController
         $this->addFlash('success', 'Merci pour votre achat');
         return $this->redirectToRoute('cart');
     }
-    
 }
