@@ -1,5 +1,5 @@
 # Try it
-https://boiling-ridge-17442.herokuapp.com/categories
+https://boiling-ridge-17442.herokuapp.com
 # Installation
 
 1. Clone or download repository
